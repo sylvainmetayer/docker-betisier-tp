@@ -14,7 +14,7 @@ services:
     nginx:
         image: nginx:latest
         ports:
-        - "8080:80"
+        - "127.0.0.0:8080:80"
         volumes:
             - ./src:/var/www/html/betisier
             - ./conf/config.inc.php:/var/www/html/betisier/include/config.inc.php
