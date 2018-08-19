@@ -22,7 +22,7 @@ cp conf/config.inc.php.example conf/config.inc.php
 Run the container (see #1 for the `--force-recreate`)
 
 ```bash
-docker-compose up -d 
+docker-compose up --build --force-recreate
 ```
 
 Go to `http://localhost:8080` to see the application running
