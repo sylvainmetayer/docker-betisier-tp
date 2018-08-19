@@ -19,7 +19,7 @@ Copy and edit `config.inc.php.example` to `config.inc.php`
 cp conf/config.inc.php.example conf/config.inc.php
 ```
 
-Run the container (see #1 for the `--force-recreate`)
+Run the docker-compose
 
 ```bash
 docker-compose up --build --force-recreate
