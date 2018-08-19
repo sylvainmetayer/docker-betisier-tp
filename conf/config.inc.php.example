@@ -1,0 +1,7 @@
+<?php
+define('DBHOST', "db");
+define('DBNAME', "");
+define('DBUSER', "");
+define('DBPASSWD', "");
+define('GRAIN_SEL', "NotASecretChangeMe");
+define('ENV','dev'); //env ou prod

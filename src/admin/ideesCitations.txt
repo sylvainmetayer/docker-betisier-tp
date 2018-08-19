@@ -1,0 +1,10 @@
+Quel que soit l'ordinateur, le système d'exploitation, le pire virus restera l'interface fauteuil/clavier.
+Si vous avez Windows et qu'il n'a jamais eu de bug, c'est que vous venez de l'avoir.
+La programmation aujourd’hui est une course entre les développeurs tâchant de concevoir des programmes de plus en plus nombreux et efficaces, convenant même aux imbéciles, et l’univers essayant de produire des idiots de plus en plus nombreux et efficaces. Jusqu’à présent, c’est l’univers qui gagne.
+Mes logiciels n’ont jamais de bug. Ils développent juste certaines fonctions aléatoires.
+Windows a détecté que vous n’aviez pas de clavier. Appuyez sur ‘F9’ pour continuer.
+Cookie : Anciennement petit gâteau sucré, qu’on acceptait avec plaisir. Aujourd’hui : petit fichier informatique drôlement salé, qu’il faut refuser avec véhémence.
+Linux : un noyau, Windows : des pépins !
+Real programmers don't comment their code. If it was hard to write, it should be hard to read.
+I don’t actually know how this code snippet works, but it seems to do what I want so I’ll put it in my program anyway.
+The bug doesn’t cause a crash? Make it a feature.

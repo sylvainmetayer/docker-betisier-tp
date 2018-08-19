@@ -1,0 +1,23 @@
+version: '3'
+services:
+    db:
+        env_file:
+            - db.env
+        build: "./mysql/"
+        # ports:
+        #     - "3306:3306"
+    php:
+        build: "./php/"
+        volumes:
+            - ./src:/var/www/html/betisier
+            - ./conf/config.inc.php:/var/www/html/betisier/include/config.inc.php
+    nginx:
+        image: nginx:latest
+        ports:
+        - "8080:80"
+        volumes:
+            - ./src:/var/www/html/betisier
+            - ./conf/config.inc.php:/var/www/html/betisier/include/config.inc.php
+            - ./conf/000_site.conf:/etc/nginx/conf.d/000_site.conf
+        links:
+            - php
