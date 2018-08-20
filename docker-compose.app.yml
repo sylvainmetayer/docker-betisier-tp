@@ -1,0 +1,27 @@
+version: '3'
+services:
+  php:
+    build: "./php/"
+    container_name: betisier
+    hostname: 'test.sylvainmetayer.fr'
+    volumes:
+        - ./src:/var/www/html/betisier
+        - ./conf/config.inc.php:/var/www/html/betisier/include/config.inc.php
+    environment:
+        VIRTUAL_HOST: test.sylvainmetayer.fr
+        # - LETSENCRYPT_HOST: test.sylvainmetayer.fr
+        # - LETSENCRYPT_EMAIL: dev@sylvainmetayer.fr 
+
+  db:
+    container_name: db
+    env_file:
+        - db.env
+    build: "./mysql/"
+
+networks:
+  default:
+    external:
+        name: nginx-proxy
+
+# docker network create nginx-proxy && docker-compose up -d --build && docker-compose -f docker-compose.app.yml up -d --build
+# docker stop $(docker ps -a -q) && docker system prune -a
