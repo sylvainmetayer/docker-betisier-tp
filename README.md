@@ -21,7 +21,7 @@ Copy and edit `config.inc.php.example` to `config.inc.php`
 cp conf/config.inc.php.example conf/config.inc.php
 ```
 
-Run the docker-compose (See #1 for the `force-recreate` argument)
+Run the docker-compose (See [#1](https://github.com/sylvainmetayer/docker-betisier-tp/issues/1) for the `force-recreate` argument)
 
 ```bash
 docker-compose up --build --force-recreate
