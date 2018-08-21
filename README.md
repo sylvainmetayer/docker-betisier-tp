@@ -1,5 +1,7 @@
 # Docker - Betisier TP
 
+[![Docker Pulls](https://img.shields.io/docker/pulls/sylvainmetayer/betisier-php.svg?style=for-the-badge)](https://hub.docker.com/r/sylvainmetayer/betisier-php/)
+
 ## Description
 
 Just a repository to play with docker from an [(old) existing project](https://github.com/sylvainmetayer/Betisier-TP)
@@ -26,3 +28,11 @@ docker-compose up --build --force-recreate
 ```
 
 Go to `http://localhost:8080` to see the application running
+
+## Tag/Push images
+
+```bash
+export DOCKER_ID_USER="MY_USERNAME"
+docker login
+./build.sh [betisier-mysql|betisier-php]
+```

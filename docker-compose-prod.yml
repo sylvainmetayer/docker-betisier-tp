@@ -31,3 +31,5 @@ services:
     env_file:
         - db.env
     build: "./betisier-mysql/"
+
+    
