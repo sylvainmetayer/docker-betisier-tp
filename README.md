@@ -5,7 +5,7 @@
 
 ## Description
 
-Just a repository to play with docker from an [(old) existing project](https://github.com/sylvainmetayer/Betisier-TP)
+Just a repository to play with docker and [Traefik](https://traefik.io/) from an [(old) existing project](https://github.com/sylvainmetayer/Betisier-TP)
 
 ## Configuration
 
@@ -24,49 +24,38 @@ cp conf/config.inc.php.example conf/config.inc.php
 
 ## Run containers
 
-1. You first need to create a internal network
-2. Start the php and mysql containers
-3. Finally, launch the nginx container
-4. **You may need to relaunch containers if you encountered an error**. 
-    - See [this issue (#1)](https://github.com/sylvainmetayer/docker-betisier-tp/issues/1) and/or go to `restart containers` section to know how to restart.
+In progress :
 
-```bash
-docker network create nginx-network && \
-docker-compose -f docker-compose.app.yml up -d && \
-docker-compose -f docker-compose.nginx.yml up -d
-```
+- Hard way
 
-Go to `http://test.sylvainmetayer.fr:8080` to see the application running
+  ```bash
+  docker stop $(docker ps -a -q) && \
+  docker system prune -a -f && \
+  docker network create traefik && \
+  docker-compose -f traefik.yml up -d && \
+  docker-compose up -d && \
+  docker ps
+  ```
 
-- edit your hosts file if needed `echo 127.0.0.1 test.sylvainmetayer.fr | sudo tee -a /etc/hosts`
+- Production (expose to `http://test.sylvainmetayer.fr`)
+  - edit your hosts file if needed `echo 127.0.0.1 test.sylvainmetayer.fr | sudo tee -a /etc/hosts`
+  - Go to `http://127.0.0.1:8083` with credentials `ocyhc:ocyhc` to see admin panel
+  - Go to `http://127.0.0.1:8082/ping` to see if traefik is alive
 
-## Restart containers
+  ```bash
+  docker network create traefik && \
+  docker-compose up -d && \
+  docker-compose -f traefik.yml up -d
+  ```
 
-```bash
-docker-compose -f docker-compose.app.yml restart && \
-docker-compose -f docker-compose.app.yml restart
-```
+- Dev (expose to `localhost:8080`) -> Not tested yet WIP
 
-## Stop containers
+  ```bash
+  docker-compose -f dev.yml up -d
+  ```
 
-```bash
-docker-compose -f docker-compose.nginx.yml down && \
-docker-compose -f docker-compose.app.yml down && \
-docker network rm nginx-network
-```
+## TODO
 
-## Tag/Push images
-
-```bash
-export DOCKER_ID_USER="MY_USERNAME"
-docker login
-./build.sh [betisier-mysql|betisier-php]
-```
-
-## Stop/Erase all images
-
-WARNING : **This will erase ALL your docker images !**
-
-```bash
-docker stop $(docker ps -a -q) && docker system prune -a
-```
+- HTTPS (see [traefik.toml](traefik.toml))
+- Handle multiple backend with traefik
+- See if we can use php-fpm instead of php-apache ([See this issue on traefik](https://github.com/containous/traefik/issues/753))

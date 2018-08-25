@@ -1,0 +1,41 @@
+logLevel = "DEBUG"
+defaultEntryPoints = ["http"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = "0.0.0.0:80"
+  # compress = true
+    # [entryPoints.http.redirect]
+    #   entryPoint = "https"
+#   [entryPoints.https]
+#   address = ":443"
+#     [entryPoints.https.tls]
+
+  [entryPoints.ping]
+  address = "0.0.0.0:8082"
+
+  [entryPoints.adminPanel]
+  address = "0.0.0.0:8083"
+
+[ping]
+entryPoint = "ping"
+
+[api]
+entryPoint = "adminPanel"
+  [api.auth.basic]
+    users = ["ocyhc:$apr1$yshixKUc$kxbRgn0Q6dZXbxcCXhO6K/"]
+
+# Connection to docker host system (docker.sock)
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+watch = true
+# This will hide all docker containers that don't have explicitly  
+# set label to "enable"
+exposedbydefault = false
+
+# [acme]
+# email = "dev@sylvainmetayer.fr"
+# storage = "acme.json"
+# entryPoint = "https"
+# onHostRule = true
+# onDemand = false

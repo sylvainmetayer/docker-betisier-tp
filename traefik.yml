@@ -1,0 +1,23 @@
+version: "3.1"
+
+services:
+  nginx:
+    container_name: traefik
+    image: traefik:1.6-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+      - "127.0.0.1:8083:8083"
+      - "127.0.0.1:8082:8082"
+    volumes:
+        - ./traefik.toml:/traefik.toml
+        - ./acme.json:/acme.json
+        - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  default:
+    external:
+        name: traefik
+
+# docker network create nginx && docker-compose up -d --build && docker-compose -f docker-compose.app.yml up -d --build
+# docker stop $(docker ps -a -q) && docker system prune -a
