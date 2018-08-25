@@ -59,3 +59,7 @@ In progress :
 - HTTPS (see [traefik.toml](traefik.toml))
 - Handle multiple backend with traefik
 - See if we can use php-fpm instead of php-apache ([See this issue on traefik](https://github.com/containous/traefik/issues/753))
+
+## Resources
+
+- [Timeout Traefik](https://stackoverflow.com/questions/46161017/gateway-timeout-with-traefik-and-php-fpm)
