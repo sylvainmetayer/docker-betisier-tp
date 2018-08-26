@@ -12,13 +12,13 @@ services:
     labels:
       - traefik.backend=betisier_php
       - traefik.frontend.rule=Host:test.sylvainmetayer.fr
-      # - traefik.docker.network=traefik
+      - traefik.docker.network=traefik
       - traefik.enable=true
       - traefik.port=80
       - traefik.frontend.passHostHeader=true
-    # networks:
-    #   - traefik
-    #   - internal
+    networks:
+      - traefik
+      - internal
     depends_on:
       - betisier_db
 

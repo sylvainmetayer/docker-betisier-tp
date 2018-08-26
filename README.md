@@ -7,59 +7,55 @@
 
 Just a repository to play with docker and [Traefik](https://traefik.io/) from an [(old) existing project](https://github.com/sylvainmetayer/Betisier-TP)
 
-## Configuration
+## Development
 
-Copy `db.env.example` to `db.env` and edit it
+1. Edit database configuration
 
-```bash
-cp db.env.example db.env
-vim  db.env
-```
+    ```bash
+    cp db.env.example db.env
+    vim  db.env
+    ```
 
-Copy and edit `config.inc.php.example` to `config.inc.php`
+2. Edit application configuration according to your database configuration
 
-```bash
-cp conf/config.inc.php.example conf/config.inc.php
-```
+    ```bash
+    cp conf/config.inc.php.example conf/config.inc.php
+    vim conf/config.inc.php
+    ```
 
-## Run containers
+3. Run it
 
-In progress :
+    ```bash
+    docker-compose -f dev.yml up -d
+    ```
 
-- Hard way
+The site is now available at [http://localhost:8080](http://localhost:8080)
 
-  ```bash
-  docker stop $(docker ps -a -q) && \
-  docker system prune -a -f && \
-  docker network create traefik && \
-  docker-compose -f traefik.yml up -d && \
-  docker-compose up -d && \
-  docker ps
-  ```
+## Actions on containers
 
-- Production (expose to `http://test.sylvainmetayer.fr`)
-  - edit your hosts file if needed `echo 127.0.0.1 test.sylvainmetayer.fr | sudo tee -a /etc/hosts`
-  - Go to `http://127.0.0.1:8083` with credentials `ocyhc:ocyhc` to see admin panel
-  - Go to `http://127.0.0.1:8082/ping` to see if traefik is alive
+- Restart
+    ```bash
+    docker-compose -f dev.yml restart
+    ```
 
-  ```bash
-  docker network create traefik && \
-  docker-compose up -d && \
-  docker-compose -f traefik.yml up -d
-  ```
+- Stop containers
+    ```bash
+    docker-compose -f dev.yml stop
+    ```
 
-- Dev (expose to `localhost:8080`) -> Not tested yet WIP
+- Remove containers
+    ```bash
+    docker-compose -f dev.yml down
+    ```
 
-  ```bash
-  docker-compose -f dev.yml up -d
-  ```
+- See logs
 
-## TODO
+    ```bash
+    docker logs betisier_php
+    docker logs betisier_db
+    ```
+    > Add `-f` at the end of the command to see live changes
 
-- HTTPS (see [traefik.toml](traefik.toml))
-- Handle multiple backend with traefik
-- See if we can use php-fpm instead of php-apache ([See this issue on traefik](https://github.com/containous/traefik/issues/753))
+## Deployement
 
-## Resources
-
-- [Timeout Traefik](https://stackoverflow.com/questions/46161017/gateway-timeout-with-traefik-and-php-fpm)
+See the [Wiki](https://github.com/sylvainmetayer/docker-betisier-tp/wiki/) for additional information.
