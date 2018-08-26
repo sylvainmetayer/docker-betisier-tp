@@ -5,68 +5,57 @@
 
 ## Description
 
-Just a repository to play with docker from an [(old) existing project](https://github.com/sylvainmetayer/Betisier-TP)
+Just a repository to play with docker and [Traefik](https://traefik.io/) from an [(old) existing project](https://github.com/sylvainmetayer/Betisier-TP)
 
-## Configuration
+## Development
 
-Copy `db.env.example` to `db.env` and edit it
+1. Edit database configuration
 
-```bash
-cp db.env.example db.env
-vim  db.env
-```
+    ```bash
+    cp db.env.example db.env
+    vim  db.env
+    ```
 
-Copy and edit `config.inc.php.example` to `config.inc.php`
+2. Edit application configuration according to your database configuration
 
-```bash
-cp conf/config.inc.php.example conf/config.inc.php
-```
+    ```bash
+    cp conf/config.inc.php.example conf/config.inc.php
+    vim conf/config.inc.php
+    ```
 
-## Run containers
+3. Run it
 
-1. You first need to create a internal network
-2. Start the php and mysql containers
-3. Finally, launch the nginx container
-4. **You may need to relaunch containers if you encountered an error**. 
-    - See [this issue (#1)](https://github.com/sylvainmetayer/docker-betisier-tp/issues/1) and/or go to `restart containers` section to know how to restart.
+    ```bash
+    docker-compose -f dev.yml up -d
+    ```
 
-```bash
-docker network create nginx-network && \
-docker-compose -f docker-compose.app.yml up -d && \
-docker-compose -f docker-compose.nginx.yml up -d
-```
+The site is now available at [http://localhost:8080](http://localhost:8080)
 
-Go to `http://test.sylvainmetayer.fr:8080` to see the application running
+## Actions on containers
 
-- edit your hosts file if needed `echo 127.0.0.1 test.sylvainmetayer.fr | sudo tee -a /etc/hosts`
+- Restart
+    ```bash
+    docker-compose -f dev.yml restart
+    ```
 
-## Restart containers
+- Stop containers
+    ```bash
+    docker-compose -f dev.yml stop
+    ```
 
-```bash
-docker-compose -f docker-compose.app.yml restart && \
-docker-compose -f docker-compose.app.yml restart
-```
+- Remove containers
+    ```bash
+    docker-compose -f dev.yml down
+    ```
 
-## Stop containers
+- See logs
 
-```bash
-docker-compose -f docker-compose.nginx.yml down && \
-docker-compose -f docker-compose.app.yml down && \
-docker network rm nginx-network
-```
+    ```bash
+    docker logs betisier_php
+    docker logs betisier_db
+    ```
+    > Add `-f` at the end of the command to see live changes
 
-## Tag/Push images
+## Deployement
 
-```bash
-export DOCKER_ID_USER="MY_USERNAME"
-docker login
-./build.sh [betisier-mysql|betisier-php]
-```
-
-## Stop/Erase all images
-
-WARNING : **This will erase ALL your docker images !**
-
-```bash
-docker stop $(docker ps -a -q) && docker system prune -a
-```
+See the [Wiki](https://github.com/sylvainmetayer/docker-betisier-tp/wiki/) for additional information.

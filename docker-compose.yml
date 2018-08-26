@@ -1,0 +1,38 @@
+version: "3.1"
+
+services:
+  
+  betisier_php:
+    container_name: betisier_php
+    image: "sylvainmetayer/betisier-php:latest"
+    build: "./betisier-php/"
+    volumes:
+        - ./src:/var/www/html/:rw
+        - ./conf/config.inc.php:/var/www/html/include/config.inc.php:rw
+    labels:
+      - traefik.backend=betisier_php
+      - traefik.frontend.rule=Host:test.sylvainmetayer.fr
+      - traefik.docker.network=traefik
+      - traefik.enable=true
+      - traefik.port=80
+      - traefik.frontend.passHostHeader=true
+    networks:
+      - traefik
+      - internal
+    depends_on:
+      - betisier_db
+
+  betisier_db:
+    container_name: betisier_db
+    image: "sylvainmetayer/betisier-mysql:latest"
+    build: "./betisier-mysql/"
+    env_file:
+        - db.env
+    networks:
+      - internal
+
+networks:
+  traefik:
+    external: true
+  internal:
+    external: false
