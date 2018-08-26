@@ -16,6 +16,13 @@ services:
       - traefik.enable=true
       - traefik.port=80
       - traefik.frontend.passHostHeader=true
+      # Security headers
+      - traefik.frontend.headers.SSLRedirect=true
+      - traefik.frontend.headers.SSLHost=test.sylvainmetayer.fr
+      - traefik.frontend.headers.STSSeconds=315360000
+      - traefik.frontend.headers.STSPreload=true
+      - traefik.frontend.headers.frameDeny=true
+      - traefik.frontend.headers.browserXSSFilter=true
     networks:
       - traefik
       - internal

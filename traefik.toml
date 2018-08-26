@@ -1,40 +1,59 @@
-logLevel = "DEBUG"
+logLevel = "ERROR"
 defaultEntryPoints = ["http", "https"]
 
 [entryPoints]
   [entryPoints.http]
-  address = "0.0.0.0:80"
-  compress = true
+    address = "0.0.0.0:80"
+    compress = true
     [entryPoints.http.redirect]
       entryPoint = "https"
+      permanent= true
+
   [entryPoints.https]
-  address = "0.0.0.0:443"
+    address = "0.0.0.0:443"
+    compress = true
     [entryPoints.https.tls]
+      minVersion = "VersionTLS12"
 
   [entryPoints.ping]
-  address = "0.0.0.0:8082"
+    address = "0.0.0.0:8082"
 
-  [entryPoints.adminPanel]
-  address = "127.0.0.1:8083"
+  [entrypoints.api]
+    address="127.0.0.1:8081"
 
 [ping]
-entryPoint = "ping"
+  entryPoint = "ping"
 
 [api]
-entryPoint = "adminPanel"
-  [api.auth.basic]
-    users = ["ocyhc:$apr1$yshixKUc$kxbRgn0Q6dZXbxcCXhO6K/"]
+  entryPoint = "api"
 
+# Connection to docker host system (docker.sock)
 [docker]
-endpoint = "unix:///var/run/docker.sock"
-watch = true
-exposedbydefault = false
+  endpoint = "unix:///var/run/docker.sock"
+  watch = true
+  # This will hide all docker containers that don't have explicitly  
+  # set label to "enable"
+  exposedbydefault = false
 
 [acme]
-email = "YOUR_EMAIL@somewhere.com"
-storage = "acme.json"
-entryPoint = "https"
-onHostRule = true
-onDemand = false
-[acme.httpChallenge]
-entryPoint = "http"
+  email = "YOU@EMAIL.COM"
+  storage = "acme.json"
+  entryPoint = "https"
+  onHostRule = true
+  onDemand = false
+  [acme.httpChallenge]
+    entryPoint = "http"
+
+[file]
+  [backends]
+    [backends.admin]
+      [backends.admin.servers.admin]
+        url = "http://127.0.0.1:8081"
+
+  [frontends]
+    [frontends.admin]
+      basicAuth = ["ocyhc:$apr1$yshixKUc$kxbRgn0Q6dZXbxcCXhO6K/"]
+      entrypoints = ["https"]
+      backend = "admin"
+        [frontends.admin.routes.route01]
+        rule = "Host:ADMIN.YOUR_DOMAIN.FR"
