@@ -1,5 +1,5 @@
 <?php
-define('DBHOST', "db");
+define('DBHOST', "betisier_db");
 define('DBNAME', "");
 define('DBUSER', "");
 define('DBPASSWD', "");
