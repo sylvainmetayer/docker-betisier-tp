@@ -1,4 +1,4 @@
-FROM php:7-apache
+FROM php:8-apache
 
 # FROM php:7-fpm
 #To test see if we can use a php-fpm image instead of php-apache one.
