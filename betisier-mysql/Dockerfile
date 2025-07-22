@@ -1,3 +1,3 @@
-FROM mysql:9.1
+FROM mysql:9.4
 
 ADD betisier.sql /docker-entrypoint-initdb.d/
